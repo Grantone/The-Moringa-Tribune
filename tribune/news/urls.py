@@ -9,6 +9,7 @@ urlpatterns = [
         views.past_days_news, name='pastNews'),
     url(r'^search/', views.search_results, name='search_results'),
     url(r'^article/(\d+)', views.article, name='article'),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

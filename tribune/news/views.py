@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 import datetime as dt
 from .models import Article
 from .forms import NewsLetterForm
+from .email import send_welcome_email
 
 # Create your views here.
 
@@ -14,7 +15,7 @@ def welcome(request):
 
 def news_today(request):
     date = dt.date.today()
-    return render(request, 'all-news/today-news.html', {"date": date, })
+    news = Article.todays_news()
 
     if request.method == 'POST':
         form = NewsLetterForm(request.POST)
@@ -23,11 +24,13 @@ def news_today(request):
             email = form.cleaned_data['email']
             recipient = NewsLetterRecipients(name=name, email=email)
             recipient.save()
+            send_welcome_email(name, email)
+
             HttpResponseRedirect('news_today')
             # print('valid')
     else:
         form = NewsLetterForm()
-    return render(request, 'all-news/today-news.html', {"date": date, "news": news, "letterForm": form})
+        return render(request, 'all-news/today-news.html', {"date": date, "news": news, "form": form})
 
 
 def convert_dates(dates):

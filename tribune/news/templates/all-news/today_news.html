@@ -1,4 +1,4 @@
-{% extends 'all-news/base.html' %} {% load bootstrap3 %} {% block content %} {{block.super}}
+{% extends 'all-news/base.html' %} {% block content %} {{block.super}} {% load bootstrap3 %}
 
 <div class="container">
 
@@ -17,15 +17,7 @@
     </div>
 
   </div>
-  <!-- Looping through news end   -->
-  <div class="container-fluid">
 
-    <form action="{%url 'newsToday'%}" method="post">
-      {%csrf_token%} {% bootstrap_form letterForm layout='inline' %}
-      <input type="submit" value="Subscribe">
-    </form>
-
-  </div>
 
   {% empty %}
   <div class="row">
@@ -33,5 +25,19 @@
 
   </div>
   {% endfor %}
+  <!-- Looping through news end   -->
+  <div class="container-fluid">
+
+    <form action="{%url 'newsToday'%}" method="post">
+      {%csrf_token%} {% for field in form %} {% bootstrap_field field %} {% endfor %}
+
+      <input type="submit" value="Subscribe">
+    </form>
+
+  </div>
+
+
+
 </div>
+
 {% endblock %}
