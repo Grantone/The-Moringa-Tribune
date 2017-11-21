@@ -1,4 +1,4 @@
-{% extends 'all-news/base.html' %} {% block content %} {{block.super}}
+{% extends 'all-news/base.html' %} {% load bootstrap3 %} {% block content %} {{block.super}}
 
 <div class="container">
 
@@ -15,6 +15,15 @@
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
       <img src="{{news_item.article_image.url}}" alt="Image" class="img-responsive">
     </div>
+
+  </div>
+  <!-- Looping through news end   -->
+  <div class="container-fluid">
+
+    <form action="{%url 'newsToday'%}" method="post">
+      {%csrf_token%} {% bootstrap_form letterForm layout='inline' %}
+      <input type="submit" value="Subscribe">
+    </form>
 
   </div>
 
