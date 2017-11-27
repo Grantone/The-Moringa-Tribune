@@ -9,6 +9,7 @@ urlpatterns = [
         views.past_days_news, name='pastNews'),
     url(r'^search/', views.search_results, name='search_results'),
     url(r'^article/(\d+)', views.article, name='article'),
+    url(r'^new/article$', views.new_article, name='new-article'),
 
 ]
 if settings.DEBUG:
